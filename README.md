@@ -277,6 +277,37 @@ These are some demo values. Full data will be updated in future commits
 
 ### 4.2 PL/SQL function
 
+## Procedures
+```sql
+- 1.Procedure which returns all email_ids and user names
+
+delimiter $$ 
+     create PROCEDURE GETUSER_email_id()
+     BEGIN
+     SELECT 
+     user_email_id,user_mobile,user_cart,user_wishlist
+     from app_user_one
+     ORDER BY user_email_id;
+     end $$ 
+ delimiter;
+   - calling procedure 
+     call GETUSER_email_id ();
+  
+ - 2.procedure which returns total count of wishlist
+ delimiter $$
+     create PROCEDURE Get_total_product_count ()
+     begin 
+     declare total_count INT default 0;
+     select count(user_wishlist) into total_count 
+     from app_user_one;
+     select total_count ;
+     end $$ 
+ delimiter ;
+   - calling procedure
+     call Get_total_product_count ();
+ - 3.
+     
+
 
 ### 4.3 Triggers
 #### Trigger that will execute before inserting new customer to database and inserting a new cartId to the cart_items table
