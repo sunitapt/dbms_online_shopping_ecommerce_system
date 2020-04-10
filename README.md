@@ -262,16 +262,27 @@ product_sizeforcustomer varchar(20),
 product_colour varchar(20),
 primary key(product_no)
 );
+
+
+
 ### 3.2 Inserting Values
 
 These are some demo values. Full data will be updated in future commits
+
 ## 4. Queries
 
 ### 4.1 Basic Queries
 
 #### If the customer wants to see details of the product present in the cart
 
-```sql
+### 4.2 PL/SQL function
+
+
+### 4.3 Triggers
+#### Trigger that will execute before inserting new customer to database and inserting a new cartId to the cart_items table
+
+
+
 
 
 
