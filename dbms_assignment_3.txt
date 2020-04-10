@@ -1,0 +1,1000 @@
+********************************************************************************************
+	SUNITA PATIL 
+        ROLL NO 45
+        ASSSIGNMENT NO 3 (DBMS_ASSIGNMENT3)
+PROBLEM STATEMENT:
+Create tables for the above schema using DDL queries. Apply appropriate constraints. Alter the table design by adding/removing column and constraints. 
+
+********************************************************************************************
+
+sunita@sunita-Inspiron-3576:~$ sudo -i
+[sudo] password for sunita: 
+root@sunita-Inspiron-3576:~# mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.19-0ubuntu0.19.10.3 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db1                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use db1
+Database changed
+mysql> create table user_login(user_email_id varchar(20),user_password int(11)); 
+Query OK, 0 rows affected, 1 warning (0.70 sec)
+
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++---------------+
+| Tables_in_db1 |
++---------------+
+| user_login    |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> create table app_user_one(user_email_id varchar(20),user_mobile int(11),user_cart varchar(20),user_wishlist varchar(20));
+Query OK, 0 rows affected, 1 warning (0.57 sec)
+
+mysql> create table app_user_two(user_email_id varchar(20),user_streetno int(11),user_city varchar(20))
+    -> ;
+Query OK, 0 rows affected, 1 warning (0.56 sec)
+
+mysql> create table app_user_three(user_email_id varchar(20),user_state varchar(20),user_pincode int(11));
+Query OK, 0 rows affected, 1 warning (0.58 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_db1  |
++----------------+
+| app_user_one   |
+| app_user_three |
+| app_user_two   |
+| user_login     |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql> create table client_one(client_no int(11),client_name varchar(20),client_email varchar(20),client_mobile int(11),user_email_id varchar(20));
+Query OK, 0 rows affected, 2 warnings (0.65 sec)
+
+mysql> create table client_two(client_no int(11),client_streetno int (11), client_city varchar(20));
+Query OK, 0 rows affected, 2 warnings (0.76 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_db1  |
++----------------+
+| app_user_one   |
+| app_user_three |
+| app_user_two   |
+| client_one     |
+| client_two     |
+| user_login     |
++----------------+
+6 rows in set (0.00 sec)
+
+
+mysql> drop table client_two;;
+Query OK, 0 rows affected (0.49 sec)
+
+
+
+mysql> drop table client_two;
+ERROR 1051 (42S02): Unknown table 'db1.client_two'
+mysql> show tables;
++----------------+
+| Tables_in_db1  |
++----------------+
+| app_user_one   |
+| app_user_three |
+| app_user_two   |
+| client_one     |
+| user_login     |
++----------------+
+5 rows in set (0.00 sec)
+
+mysql> create table client_two(client_no int(11),client_streetno int(11));
+Query OK, 0 rows affected, 2 warnings (0.75 sec)
+
+mysql> create table client_three(client_no int(11),client_pincode int(11));
+Query OK, 0 rows affected, 2 warnings (0.40 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_db1  |
++----------------+
+| app_user_one   |
+| app_user_three |
+| app_user_two   |
+| client_one     |
+| client_three   |
+| client_two     |
+| user_login     |
++----------------+
+7 rows in set (0.01 sec)
+
+mysql> create table salesman_master(salesman_no int(11),salesman_name varchar(20),salesman_phoneno int(11),salesman_pincode int(11));
+Query OK, 0 rows affected, 3 warnings (0.91 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_db1   |
++-----------------+
+| app_user_one    |
+| app_user_three  |
+| app_user_two    |
+| client_one      |
+| client_three    |
+| client_two      |
+| salesman_master |
+| user_login      |
++-----------------+
+8 rows in set (0.00 sec)
+
+
+mysql> create table sales_order(order_no int(11),order_date date,salesman_no int(11),client_no int(1o),primary key(order_no));
+Query OK, 0 rows affected, 3 warnings (0.60 sec)
+
+
+
+mysql> create table sales_order_details(order_no int(11),product_no int(11),quantity_no int(11),primary key(order_no));
+Query OK, 0 rows affected, 3 warnings (0.56 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| app_user_one        |
+| app_user_three      |
+| app_user_two        |
+| client_one          |
+| client_three        |
+| client_two          |
+| sales_order         |
+| sales_order_details |
+| salesman_master     |
+| user_login          |
++---------------------+
+10 rows in set (0.00 sec)
+
+mysql> create table payment_one(pay_id int(11),pay_amt int(11),pay_date date,pay_customer_id int(11),primary key(pay_id));
+Query OK, 0 rows affected, 3 warnings (0.71 sec)
+
+mysql> create table payment_two(pay_id int(11),pay_details_cash varchar(20),pay_details_online varchar(20),primary key(pay_id));
+Query OK, 0 rows affected, 1 warning (0.54 sec)
+
+mysql> create table product_master(product_no int(11),pay_id int(11),product_price int(11),quantity_available int(11),primary
+key(product_no));
+Query OK, 0 rows affected, 4 warnings (0.48 sec)
+
+mysql> drop table product_master;
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> create table product_master(product_no int(11),pay_id int(11),product_price int(11),quantity_available int(11),primary
+    -> key(product_no));
+Query OK, 0 rows affected, 4 warnings (0.53 sec)
+
+mysql> drop table product_master;
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> create table product_master_one(product_no int(11),pay_id int(11),product_price int(11),quantity_available int(11),primary
+    -> key(product_no));
+Query OK, 0 rows affected, 4 warnings (0.62 sec)
+
+
+mysql> create table product_master_two(product_no int(11),product_sizeforcustomer varchar(20),product_colour varchar(20),primary key(product_no));
+Query OK, 0 rows affected, 1 warning (0.88 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| app_user_one        |
+| app_user_three      |
+| app_user_two        |
+| client_one          |
+| client_three        |
+| client_two          |
+| payment_one         |
+| payment_two         |
+| product_master_one  |
+| product_master_two  |
+| sales_order         |
+| sales_order_details |
+| salesman_master     |
+| user_login          |
++---------------------+
+14 rows in set (0.00 sec)
+
+mysql> describe app_user_one
+    -> ;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | YES  |     | NULL    |       |
+| user_mobile   | int         | YES  |     | NULL    |       |
+| user_cart     | varchar(20) | YES  |     | NULL    |       |
+| user_wishlist | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.08 sec)
+
+mysql> alter table product_master_one
+    -> add foreign key (pay_id) REFERENCES payment_one(pay_id);
+Query OK, 0 rows affected (2.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table product_master_one add foreign key (pay_id) REFERENCES payment_two(pay_id);
+Query OK, 0 rows affected (1.48 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sales_order_details add foreign key (product_no) references product_master_one(product_no);
+Query OK, 0 rows affected (1.74 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sales_order_details add foreign key (product_no) references product_master_two(product_no);
+Query OK, 0 rows affected (1.72 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table sales_order;
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> create table sales_order(order_no int(11),order_date date,salesman_no int(11),client_no int(11));
+Query OK, 0 rows affected, 3 warnings (0.70 sec)
+
+mysql> alter table sales_order add foreign key (order_no) references sales_order_details(order_no);
+Query OK, 0 rows affected (1.64 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table salesman_master add primary key(salesman_no);
+Query OK, 0 rows affected (1.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table client_one add primary key(client_no);
+Query OK, 0 rows affected (1.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table client_two add primary key(client_no);
+Query OK, 0 rows affected (1.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table app_user_one add primary key(user_email_id);
+Query OK, 0 rows affected (1.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table app_user_two add primary key(user_email_id);
+Query OK, 0 rows affected (1.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table client_one add foreign key(user_email_id) references app_user_one(user_email_id);
+Query OK, 0 rows affected (1.81 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table app_user_three add primary key(user_email_id);
+Query OK, 0 rows affected (1.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table client_one add foreign key(user_email_id) references app_user_two(user_email_id);
+Query OK, 0 rows affected (1.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table client_one add foreign key(user_email_id) references app_user_three(user_email_id);
+Query OK, 0 rows affected (1.44 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table user_login add primary key(user_email_id);
+Query OK, 0 rows affected (1.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table client_one add foreign key(user_email_id) references app_user_one(user_email_id);
+Query OK, 0 rows affected (1.83 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sales_order add foreign key (client_no) references client_one(client_no);
+Query OK, 0 rows affected (2.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sales_order add foreign key (salesman_no) references salesman_master(salesman_no);
+Query OK, 0 rows affected (1.93 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table sales_order add foreign key (order_no) references sales_order_details(order_no);
+Query OK, 0 rows affected (2.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> show tables
+    -> ;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| app_user_one        |
+| app_user_three      |
+| app_user_two        |
+| client_one          |
+| client_three        |
+| client_two          |
+| payment_one         |
+| payment_two         |
+| product_master_one  |
+| product_master_two  |
+| sales_order         |
+| sales_order_details |
+| salesman_master     |
+| user_login          |
++---------------------+
+14 rows in set (0.00 sec)
+
+mysql> describe app_user_one ;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_mobile   | int         | YES  |     | NULL    |       |
+| user_cart     | varchar(20) | YES  |     | NULL    |       |
+| user_wishlist | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> describe app_user_two ;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_streetno | int         | YES  |     | NULL    |       |
+| user_city     | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> describe app_user_three ;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_state    | varchar(20) | YES  |     | NULL    |       |
+| user_pincode  | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> describe client_one ;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| client_no     | int         | NO   | PRI | NULL    |       |
+| client_name   | varchar(20) | YES  |     | NULL    |       |
+| client_email  | varchar(20) | YES  |     | NULL    |       |
+| client_mobile | int         | YES  |     | NULL    |       |
+| user_email_id | varchar(20) | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> describe client_two ;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| client_no       | int  | NO   | PRI | NULL    |       |
+| client_streetno | int  | YES  |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> describe client_three ;
++----------------+------+------+-----+---------+-------+
+| Field          | Type | Null | Key | Default | Extra |
++----------------+------+------+-----+---------+-------+
+| client_no      | int  | YES  |     | NULL    |       |
+| client_pincode | int  | YES  |     | NULL    |       |
++----------------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> describe payment_one ;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| pay_id          | int  | NO   | PRI | NULL    |       |
+| pay_amt         | int  | YES  |     | NULL    |       |
+| pay_date        | date | YES  |     | NULL    |       |
+| pay_customer_id | int  | YES  |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> describe payment_two ;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| pay_id             | int         | NO   | PRI | NULL    |       |
+| pay_details_cash   | varchar(20) | YES  |     | NULL    |       |
+| pay_details_online | varchar(20) | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> describe product_master_one ;
++--------------------+------+------+-----+---------+-------+
+| Field              | Type | Null | Key | Default | Extra |
++--------------------+------+------+-----+---------+-------+
+| product_no         | int  | NO   | PRI | NULL    |       |
+| pay_id             | int  | YES  | MUL | NULL    |       |
+| product_price      | int  | YES  |     | NULL    |       |
+| quantity_available | int  | YES  |     | NULL    |       |
++--------------------+------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> describe product_master_two ;
++-------------------------+-------------+------+-----+---------+-------+
+| Field                   | Type        | Null | Key | Default | Extra |
++-------------------------+-------------+------+-----+---------+-------+
+| product_no              | int         | NO   | PRI | NULL    |       |
+| product_sizeforcustomer | varchar(20) | YES  |     | NULL    |       |
+| product_colour          | varchar(20) | YES  |     | NULL    |       |
++-------------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> describe sales_order ;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| order_no    | int  | YES  | MUL | NULL    |       |
+| order_date  | date | YES  |     | NULL    |       |
+| salesman_no | int  | YES  | MUL | NULL    |       |
+| client_no   | int  | YES  | MUL | NULL    |       |
++-------------+------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> describe sales_order_details;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| order_no    | int  | NO   | PRI | NULL    |       |
+| product_no  | int  | YES  | MUL | NULL    |       |
+| quantity_no | int  | YES  |     | NULL    |       |
++-------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> describe salesman_master;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| salesman_no      | int         | NO   | PRI | NULL    |       |
+| salesman_name    | varchar(20) | YES  |     | NULL    |       |
+| salesman_phoneno | int         | YES  |     | NULL    |       |
+| salesman_pincode | int         | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> describe user_login;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_password | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+sunita@sunita-Inspiron-3576:~$ sudo -i
+root@sunita-Inspiron-3576:~# mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.19-0ubuntu0.19.10.3 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db1                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use db1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| app_user_one        |
+| app_user_three      |
+| app_user_two        |
+| client_one          |
+| client_three        |
+| client_two          |
+| payment_one         |
+| payment_two         |
+| product_master_one  |
+| product_master_two  |
+| sales_order         |
+| sales_order_details |
+| salesman_master     |
+| user_login          |
++---------------------+
+14 rows in set (0.00 sec)
+
+mysql> describe app_user_one;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_mobile   | int         | YES  |     | NULL    |       |
+| user_cart     | varchar(20) | YES  |     | NULL    |       |
+| user_wishlist | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into app_user_one values ('sunitapatil','70165','jeans','goggles');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into app_user_one values ('madhavpatil','75175','shoose','earphones');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into app_user_one values ('bajiraopatil','75175','trousers','shirt');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into app_user_one values ('nikhita','845999','tshirt','kurta');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into app_user_one values ('shreyadeshpande','75884','trousers','one-piece');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> describe app_user_one;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_mobile   | int         | YES  |     | NULL    |       |
+| user_cart     | varchar(20) | YES  |     | NULL    |       |
+| user_wishlist | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from app_user_one;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | trousers  | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> describe app_user_two;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_streetno | int         | YES  |     | NULL    |       |
+| user_city     | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into app_user_two values ('sunitapatil','111','pune');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into app_user_two values ('madhavpatil','4132','barshi');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into app_user_two values ('nikhita','8765','nashik');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into app_user_two values ('shreyadeshpande','151','nashik');
+Query OK, 1 row affected (0.18 sec)
+
+mysql> insert into app_user_two values ('bajiraopatil','888','madha');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from app_user_two;
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| bajiraopatil    |           888 | madha     |
+| madhavpatil     |          4132 | barshi    |
+| nikhita         |          8765 | nashik    |
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> describe app_user_three;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_state    | varchar(20) | YES  |     | NULL    |       |
+| user_pincode  | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into app_user_three values ('bajiraopatil','maharashtra','413209');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into app_user_three values ('shreyadeshpande','maharashtra','422012');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into app_user_three values ('nikhita','maharashtra','422012')
+    -> ;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into app_user_three values ('sunitapatil','maharashtra','411037');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into app_user_three values ('madhavpatil','maharashtra','413201');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from app_user_three;
++-----------------+-------------+--------------+
+| user_email_id   | user_state  | user_pincode |
++-----------------+-------------+--------------+
+| bajiraopatil    | maharashtra |       413209 |
+| madhavpatil     | maharashtra |       413201 |
+| nikhita         | maharashtra |       422012 |
+| shreyadeshpande | maharashtra |       422012 |
+| sunitapatil     | maharashtra |       411037 |
++-----------------+-------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> describe client_one;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| client_no     | int         | NO   | PRI | NULL    |       |
+| client_name   | varchar(20) | YES  |     | NULL    |       |
+| client_email  | varchar(20) | YES  |     | NULL    |       |
+| client_mobile | int         | YES  |     | NULL    |       |
+| user_email_id | varchar(20) | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from client_one;
+Empty set (0.00 sec)
+
+mysql> insert into client_one values ('1','sunita patil','sunitapatil','70165','sunitapatil');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from client_one;
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
++-----------+--------------+--------------+---------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> insert into client_one values ('2','madhav patil','madhavpatil','96735','madhavpatil');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into client_one values ('3','nikhita','nikhitag','84599','nikhita');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from client_one;
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   |
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       |
++-----------+--------------+--------------+---------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> describe client_two;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| client_no       | int  | NO   | PRI | NULL    |       |
+| client_streetno | int  | YES  |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> insert into client_two values ('3','8765');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into client_two values ('2','4132');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into client_two values ('1','111');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from client_two;
++-----------+-----------------+
+| client_no | client_streetno |
++-----------+-----------------+
+|         1 |             111 |
+|         2 |            4132 |
+|         3 |            8765 |
++-----------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> describe client_three;
++----------------+------+------+-----+---------+-------+
+| Field          | Type | Null | Key | Default | Extra |
++----------------+------+------+-----+---------+-------+
+| client_no      | int  | YES  |     | NULL    |       |
+| client_pincode | int  | YES  |     | NULL    |       |
++----------------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into client_three values ('1','411037');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into client_three values ('2','413201');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into client_three values ('3','422012');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from client_three;
++-----------+----------------+
+| client_no | client_pincode |
++-----------+----------------+
+|         1 |         411037 |
+|         2 |         413201 |
+|         3 |         422012 |
++-----------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> describe payment_one;
++-----------------+------+------+-----+---------+-------+
+| Field           | Type | Null | Key | Default | Extra |
++-----------------+------+------+-----+---------+-------+
+| pay_id          | int  | NO   | PRI | NULL    |       |
+| pay_amt         | int  | YES  |     | NULL    |       |
+| pay_date        | date | YES  |     | NULL    |       |
+| pay_customer_id | int  | YES  |     | NULL    |       |
++-----------------+------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into payment_one values ('101','100','2000-05-01','1');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into payment_one values ('102','200','2020-03-19','2');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into payment_one values ('103','300','2020-03-9','3');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> describe payment_two;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| pay_id             | int         | NO   | PRI | NULL    |       |
+| pay_details_cash   | varchar(20) | YES  |     | NULL    |       |
+| pay_details_online | varchar(20) | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into payment_two values ('103','no','yes');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into payment_two values ('102','no','yes');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into payment_two values ('101','yes','no');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from payment_two;
++--------+------------------+--------------------+
+| pay_id | pay_details_cash | pay_details_online |
++--------+------------------+--------------------+
+|    101 | yes              | no                 |
+|    102 | no               | yes                |
+|    103 | no               | yes                |
++--------+------------------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> describe product_master_one;
++--------------------+------+------+-----+---------+-------+
+| Field              | Type | Null | Key | Default | Extra |
++--------------------+------+------+-----+---------+-------+
+| product_no         | int  | NO   | PRI | NULL    |       |
+| pay_id             | int  | YES  | MUL | NULL    |       |
+| product_price      | int  | YES  |     | NULL    |       |
+| quantity_available | int  | YES  |     | NULL    |       |
++--------------------+------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into product_master_one values ('1','101','100','3');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into product_master_one values ('2','102','200','4');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from product_master_onw;
+ERROR 1146 (42S02): Table 'db1.product_master_onw' doesn't exist
+mysql> select * from product_master_one;
++------------+--------+---------------+--------------------+
+| product_no | pay_id | product_price | quantity_available |
++------------+--------+---------------+--------------------+
+|          1 |    101 |           100 |                  3 |
+|          2 |    102 |           200 |                  4 |
++------------+--------+---------------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> describe product_master_two;
++-------------------------+-------------+------+-----+---------+-------+
+| Field                   | Type        | Null | Key | Default | Extra |
++-------------------------+-------------+------+-----+---------+-------+
+| product_no              | int         | NO   | PRI | NULL    |       |
+| product_sizeforcustomer | varchar(20) | YES  |     | NULL    |       |
+| product_colour          | varchar(20) | YES  |     | NULL    |       |
++-------------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into product_master_two values ('1','S','black');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into product_master_two values ('2','M','white');
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select * from product_master_two;
++------------+-------------------------+----------------+
+| product_no | product_sizeforcustomer | product_colour |
++------------+-------------------------+----------------+
+|          1 | S                       | black          |
+|          2 | M                       | white          |
++------------+-------------------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> describe salesman_master;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| salesman_no      | int         | NO   | PRI | NULL    |       |
+| salesman_name    | varchar(20) | YES  |     | NULL    |       |
+| salesman_phoneno | int         | YES  |     | NULL    |       |
+| salesman_pincode | int         | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into salesman_master values ('10','abc','12345','13456');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into salesman_master values ('20','xyz','76545','13457');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from salesman_master;
++-------------+---------------+------------------+------------------+
+| salesman_no | salesman_name | salesman_phoneno | salesman_pincode |
++-------------+---------------+------------------+------------------+
+|          10 | abc           |            12345 |            13456 |
+|          20 | xyz           |            76545 |            13457 |
++-------------+---------------+------------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> describe sales_order;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| order_no    | int  | YES  | MUL | NULL    |       |
+| order_date  | date | YES  |     | NULL    |       |
+| salesman_no | int  | YES  | MUL | NULL    |       |
+| client_no   | int  | YES  | MUL | NULL    |       |
++-------------+------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+
+mysql> describe sales_order_details;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| order_no    | int  | NO   | PRI | NULL    |       |
+| product_no  | int  | YES  | MUL | NULL    |       |
+| quantity_no | int  | YES  |     | NULL    |       |
++-------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into sales_order_details values ('1','1','1');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into sales_order_details values ('2','2','4');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from sales_order_details;
++----------+------------+-------------+
+| order_no | product_no | quantity_no |
++----------+------------+-------------+
+|        1 |          1 |           1 |
+|        2 |          2 |           4 |
++----------+------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> describe sales_order;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| order_no    | int  | YES  | MUL | NULL    |       |
+| order_date  | date | YES  |     | NULL    |       |
+| salesman_no | int  | YES  | MUL | NULL    |       |
+| client_no   | int  | YES  | MUL | NULL    |       |
++-------------+------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into sales_order values ('1','2020-03-10','10','1');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into sales_order values ('2','2020-03-12','20','2');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from sales_order;
++----------+------------+-------------+-----------+
+| order_no | order_date | salesman_no | client_no |
++----------+------------+-------------+-----------+
+|        1 | 2020-03-10 |          10 |         1 |
+|        2 | 2020-03-12 |          20 |         2 |
++----------+------------+-------------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> describe user_login;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| user_email_id | varchar(20) | NO   | PRI | NULL    |       |
+| user_password | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into user_login values('sunitapatil','1234');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into user_login values('madhavpatil','4576');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into user_login values('nikhita','8459');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into user_login values('bajiraopatil','9876');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into user_login values('shreyadeshpande','1526');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from user_login;
++-----------------+---------------+
+| user_email_id   | user_password |
++-----------------+---------------+
+| bajiraopatil    |          9876 |
+| madhavpatil     |          4576 |
+| nikhita         |          8459 |
+| shreyadeshpande |          1526 |
+| sunitapatil     |          1234 |
++-----------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+

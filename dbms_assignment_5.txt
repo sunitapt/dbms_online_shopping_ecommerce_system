@@ -1,0 +1,633 @@
+********************************************************************************************
+	SUNITA PATIL 
+        ROLL NO 45
+        ASSSIGNMENT NO 5 (DBMS_ASSIGNMENT3)
+PROBLEM STATEMENT:
+	Write meaningful stored PL/SQL functions for your application.
+
+********************************************************************************************
+
+
+
+
+TASK COMPLETED
+-----------------------------------------------------------
+1.getting started with stored procedure/function
+2.creating stored procedure
+3.modifying stored procedure 
+4.procedure status(listing stored procedure)
+5.using variables
+6.parameters
+7.if then 
+8.case statement
+9.meaningful stored PL/SQL functions -6 procedures
+----------------------------------------------------------
+
+mysql> show function status where db='db1';
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db  | Name                         | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| db1 | Customer_Shipping            | FUNCTION | root@localhost | 2020-04-08 20:52:10 | 2020-04-08 20:52:10 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | GETUSER_email_id             | FUNCTION | root@localhost | 2020-04-08 11:21:50 | 2020-04-08 11:21:50 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_client_name              | FUNCTION | root@localhost | 2020-04-08 13:02:42 | 2020-04-08 13:02:42 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_Customer_Shipping        | FUNCTION | root@localhost | 2020-04-08 20:38:53 | 2020-04-08 20:38:53 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | get_payment_customer_details | FUNCTION | root@localhost | 2020-04-08 20:04:11 | 2020-04-08 20:04:11 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_total_product_count      | FUNCTION | root@localhost | 2020-04-08 12:27:24 | 2020-04-08 12:27:24 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+6 rows in set (0.00 sec)
+
+
+mysql> show procedure status where db='db1';
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db  | Name                         | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| db1 | Customer_Shipping            | PROCEDURE | root@localhost | 2020-04-08 20:52:10 | 2020-04-08 20:52:10 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | GETUSER_email_id             | PROCEDURE | root@localhost | 2020-04-08 11:21:50 | 2020-04-08 11:21:50 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_client_name              | PROCEDURE | root@localhost | 2020-04-08 13:02:42 | 2020-04-08 13:02:42 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_Customer_Shipping        | PROCEDURE | root@localhost | 2020-04-08 20:38:53 | 2020-04-08 20:38:53 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | get_payment_customer_details | PROCEDURE | root@localhost | 2020-04-08 20:04:11 | 2020-04-08 20:04:11 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_total_product_count      | PROCEDURE | root@localhost | 2020-04-08 12:27:24 | 2020-04-08 12:27:24 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+6 rows in set (0.00 sec)
+
+
+sunita@sunita-Inspiron-3576:~$ sudo -i
+[sudo] password for sunita: 
+root@sunita-Inspiron-3576:~# mysql -u root;
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.19-0ubuntu0.19.10.3 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| akshada            |
+| db1                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use db1
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| app_user_one        |
+| app_user_three      |
+| app_user_two        |
+| client_one          |
+| client_three        |
+| client_two          |
+| payment_one         |
+| payment_two         |
+| product_master_one  |
+| product_master_two  |
+| sales_order         |
+| sales_order_details |
+| salesman_master     |
+| user_login          |
+| view1               |
+| view2               |
++---------------------+
+16 rows in set (0.00 sec)
+
+mysql>  SELECT user_email_id,user_mobile,user_cart,user_wishlist from app_user_one
+    ->ORDER BY user_email_id;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | sanitizer | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter $$ 
+     ->create PROCEDURE GETUSER_email_id()
+     ->BEGIN
+     ->SELECT 
+     -> user_email_id,user_mobile,user_cart,user_wishlist
+     ->from app_user_one
+     ->ORDER BY user_email_id;
+     ->end $$ 
+     ->delimiter;
+Query OK, 0 rows affected (0.00 sec)
+
+
+sunita@sunita-Inspiron-3576:~$ sudo -i
+[sudo] password for sunita: 
+root@sunita-Inspiron-3576:~# mysql -u root;
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.19-0ubuntu0.19.10.3 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| akshada            |
+| db1                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use db1
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| app_user_one        |
+| app_user_three      |
+| app_user_two        |
+| client_one          |
+| client_three        |
+| client_two          |
+| payment_one         |
+| payment_two         |
+| product_master_one  |
+| product_master_two  |
+| sales_order         |
+| sales_order_details |
+| salesman_master     |
+| user_login          |
+| view1               |
+| view2               |
++---------------------+
+16 rows in set (0.00 sec)
+
+mysql> call GETUSER_email_id ();
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | sanitizer | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+mysql> show procedure status  where db='db1';
++-----+------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db  | Name             | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++-----+------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| db1 | GETUSER_email_id | PROCEDURE | root@localhost | 2020-04-08 11:21:50 | 2020-04-08 11:21:50 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-----+------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from app_user_one;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | sanitizer | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+
+mysql> delimiter $$
+mysql> create PROCEDURE Get_total_product_count ()
+    -> begin 
+    -> declare total_count INT default 0;
+    -> select count(user_wishlist) into total_count 
+    -> from app_user_one;
+    -> select total_count ;
+    -> end $$
+Query OK, 0 rows affected (0.21 sec)
+
+
+mysql> use db1
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from app_user_one;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | sanitizer | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(user_wishlist) from app_user_one;
++----------------------+
+| count(user_wishlist) |
++----------------------+
+|                    5 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> show procedure status where db='db1';
++-----+-------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db  | Name                    | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++-----+-------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| db1 | GETUSER_email_id        | PROCEDURE | root@localhost | 2020-04-08 11:21:50 | 2020-04-08 11:21:50 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_total_product_count | PROCEDURE | root@localhost | 2020-04-08 12:27:24 | 2020-04-08 12:27:24 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-----+-------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+2 rows in set (0.01 sec)
+
+mysql> call Get_total_product_count();
++-------------+
+| total_count |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+mysql> select * from client_one;
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   |
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       |
++-----------+--------------+--------------+---------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> delimiter $$
+mysql> create procedure Get_client_name (
+    -> in clientname varchar(20)
+    -> )
+    -> begin 
+    -> select * from client_one
+    -> where client_name=clientname;
+    -> end $$
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> call Get_client_name('Nikhita');
++-----------+-------------+--------------+---------------+---------------+
+| client_no | client_name | client_email | client_mobile | user_email_id |
++-----------+-------------+--------------+---------------+---------------+
+|         3 | nikhita     | nikhitag     |         84599 | nikhita       |
++-----------+-------------+--------------+---------------+---------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call Get_client_name('sunita_patil');
+Empty set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call Get_client_name('madhav patil');
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   |
++-----------+--------------+--------------+---------------+---------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call Get_client_name('sunita patil');
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
++-----------+--------------+--------------+---------------+---------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+mysql> select * from payment_one;
++--------+---------+------------+-----------------+
+| pay_id | pay_amt | pay_date   | pay_customer_id |
++--------+---------+------------+-----------------+
+|    101 |     100 | 2000-05-01 |               1 |
+|    102 |     200 | 2020-03-19 |               2 |
+|    103 |     300 | 2020-03-09 |               3 |
++--------+---------+------------+-----------------+
+3 rows in set (0.05 sec)
+
+
+mysql> delimiter $$
+mysql> create procedure get_payment_customer_details(
+    -> in customerid int,
+    -> out amtlimit varchar(20))
+    -> begin 
+    -> declare amt decimal default 0;
+    -> select pay_amt into amt 
+    -> from payment_one
+    -> where pay_customer_id=customerid;
+    -> IF amt >0 then 
+    -> SET amtlimit ='doing well';
+    -> ELSE 
+    -> SET amtlimit='not doing well';
+    -> END IF;
+    -> END $$
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> call get_payment_customer_details(1,@amtlimit);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @amtlimit;
++------------+
+| @amtlimit  |
++------------+
+| doing well |
++------------+
+1 row in set (0.00 sec)
+
+mysql> call get_payment_customer_details(2,@amtlimit);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @amtlimit;
++------------+
+| @amtlimit  |
++------------+
+| doing well |
++------------+
+1 row in set (0.00 sec)
+
+mysql> call get_payment_customer_details(3,@amtlimit);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @amtlimit;
++------------+
+| @amtlimit  |
++------------+
+| doing well |
++------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+mysql> 
+mysql> select * from app_user_two;
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| bajiraopatil    |           888 | madha     |
+| madhavpatil     |          4132 | barshi    |
+| nikhita         |          8765 | nashik    |
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+5 rows in set (0.04 sec)
+
+mysql> DELIMITER $$
+mysql> CREATE PROCEDURE Get_Customer_Shipping(
+    ->  IN  Customerid INT, 
+    ->  OUT Shipping VARCHAR(50)
+    -> )
+    -> BEGIN
+    -> DECLARE customer_city VARCHAR(100);
+    -> SELECT user_city
+    -> INTO customer_city FROM
+    ->  app_user_two
+    -> WHERE
+    ->     user_email_id = Customerid;
+    -> CASE customer_city
+    ->   WHEN  'pune' THEN
+    ->  SET Shipping = '2-day Shipping';
+    -> WHEN 'nashik' THEN
+    ->   SET Shipping = '3-day Shipping';
+    ->  ELSE
+    ->  SET Shipping = '5-day Shipping';
+    ->  END CASE;
+    -> END$$
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> call Get_Customer_Shipping(1,@shipping);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select @shipping;
++----------------+
+| @shipping      |
++----------------+
+| 5-day Shipping |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> call Get_Customer_Shipping(2,@shipping);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @shipping;
++----------------+
+| @shipping      |
++----------------+
+| 5-day Shipping |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> call Get_Customer_Shipping(3,@shipping);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @shipping;
++----------------+
+| @shipping      |
++----------------+
+| 5-day Shipping |
++----------------+
+1 row in set (0.00 sec)
+
+
+mysql> DELIMITER $$
+mysql> CREATE PROCEDURE Customer_Shipping(
+    -> IN  Customerid varchar(20), 
+    ->  OUT Shipping VARCHAR(50)
+    -> )
+    -> BEGIN
+    -> DECLARE customer_city VARCHAR(100);
+    -> select user_city
+    -> INTO customer_city FROM
+    ->  app_user_two
+    -> WHERE
+    -> user_email_id = Customerid;
+    ->  CASE customer_city
+    ->   WHEN  'pune' THEN
+    ->  SET Shipping = '2-day Shipping';
+    -> WHEN 'nashik' THEN
+    -> SET Shipping = '3-day Shipping';
+    -> ELSE
+    ->  SET Shipping = '5-day Shipping';
+    -> END CASE;
+    -> END $$
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> delimiter ;
+
+mysql> call Customer_Shipping('nikhita',@shipping)
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @shipping;
++----------------+
+| @shipping      |
++----------------+
+| 3-day Shipping |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> call Customer_Shipping('sunitapatil',@shipping)
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @shipping;
++----------------+
+| @shipping      |
++----------------+
+| 2-day Shipping |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> call Customer_Shipping('bajiraopatil',@shipping)
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @shipping;
++----------------+
+| @shipping      |
++----------------+
+| 5-day Shipping |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> call Customer_Shipping('madhavpatil',@shipping);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @shipping;
++----------------+
+| @shipping      |
++----------------+
+| 5-day Shipping |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> call Customer_Shipping('shreyadeshpande',@shipping);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @shipping;
++----------------+
+| @shipping      |
++----------------+
+| 3-day Shipping |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+mysql>  CREATE function client_Shipping(
+    ->        Customerid varchar(20), 
+    ->       Shipping VARCHAR(50)
+    ->      )
+    ->      RETURNS VARCHAR(20)
+    ->       DETERMINISTIC
+    ->    BEGIN
+    ->      DECLARE customer_city VARCHAR(100);
+    ->      select user_city
+    ->      INTO customer_city FROM
+    ->       app_user_two
+    ->      WHERE
+    ->      user_email_id = Customerid;
+    ->       CASE customer_city
+    ->        WHEN  'pune' THEN
+    ->       SET Shipping = '2-day Shipping';
+    ->      WHEN 'nashik' THEN
+    ->      SET Shipping = '3-day Shipping';
+    ->      ELSE
+    ->       SET Shipping = '5-day Shipping';
+    ->      END CASE;
+    ->       return (shipping);
+    ->      END $$
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> show function status where db='db1';
++-----+-----------------+----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db  | Name            | Type     | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++-----+-----------------+----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| db1 | client_Shipping | FUNCTION | root@localhost | 2020-04-08 23:08:29 | 2020-04-08 23:08:29 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-----+-----------------+----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+1 row in set (0.01 sec)
+
+mysql> show procedure status where db='db1';
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db  | Name                         | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| db1 | Customer_Shipping            | PROCEDURE | root@localhost | 2020-04-08 20:52:10 | 2020-04-08 20:52:10 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | GETUSER_email_id             | PROCEDURE | root@localhost | 2020-04-08 11:21:50 | 2020-04-08 11:21:50 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_client_name              | PROCEDURE | root@localhost | 2020-04-08 13:02:42 | 2020-04-08 13:02:42 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_Customer_Shipping        | PROCEDURE | root@localhost | 2020-04-08 20:38:53 | 2020-04-08 20:38:53 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | get_payment_customer_details | PROCEDURE | root@localhost | 2020-04-08 20:04:11 | 2020-04-08 20:04:11 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_total_product_count      | PROCEDURE | root@localhost | 2020-04-08 12:27:24 | 2020-04-08 12:27:24 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> show function status where db='db1';
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db  | Name                         | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| db1 | Customer_Shipping            | FUNCTION | root@localhost | 2020-04-08 20:52:10 | 2020-04-08 20:52:10 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | GETUSER_email_id             | FUNCTION | root@localhost | 2020-04-08 11:21:50 | 2020-04-08 11:21:50 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_client_name              | FUNCTION | root@localhost | 2020-04-08 13:02:42 | 2020-04-08 13:02:42 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_Customer_Shipping        | FUNCTION | root@localhost | 2020-04-08 20:38:53 | 2020-04-08 20:38:53 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | get_payment_customer_details | FUNCTION | root@localhost | 2020-04-08 20:04:11 | 2020-04-08 20:04:11 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| db1 | Get_total_product_count      | FUNCTION | root@localhost | 2020-04-08 12:27:24 | 2020-04-08 12:27:24 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+

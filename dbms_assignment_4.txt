@@ -1,0 +1,964 @@
+********************************************************************************************
+	SUNITA SHANTINATH PATIL 
+        ROLL NO 45
+        ASSSIGNMENT NO 4 (DBMS_ASSIGNMENT4)
+PROBLEM STATEMENT:
+Execute ‘SELECT’ queries using various operators. Also make use of order by, group by, 
+having clause, aggregate functions,view and set operators and join operation(equijoin, non equijoin, self join And outer join.)
+
+******************************************************************************************
+
+**select *,select columns
+**aggregate functions sum ,avg ,max,count etc 
+**order by
+**group by
+**having
+**inner join ,cross join,semi join,anti join,equi join,right join,left join,full outer join,left outer join,right outer join,non equi joins,self join
+**view 
+**update,where,delete,distinct
+**between,AND,OR,coparator operators,IS NULL,IS NOT NULL,like,subquery,alises
+**set operators union,union all,intersect,minus
+**exist,not exist,in not in 
+*********************************************************************************************
+sunita@sunita-Inspiron-3576:~$ sudo -i
+[sudo] password for sunita: 
+root@sunita-Inspiron-3576:~# mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.19-0ubuntu0.19.10.3 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| db1                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.06 sec)
+
+mysql> use db1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from salesman_master;
++-------------+---------------+------------------+------------------+
+| salesman_no | salesman_name | salesman_phoneno | salesman_pincode |
++-------------+---------------+------------------+------------------+
+|          10 | abc           |            12345 |            13456 |
+|          20 | xyz           |            76545 |            13457 |
++-------------+---------------+------------------+------------------+
+2 rows in set (0.07 sec)
+
+mysql> select * from sales_order_details;
++----------+------------+-------------+
+| order_no | product_no | quantity_no |
++----------+------------+-------------+
+|        1 |          1 |           1 |
+|        2 |          2 |           4 |
++----------+------------+-------------+
+2 rows in set (0.08 sec)
+
+mysql> select * from sales_order;
++----------+------------+-------------+-----------+
+| order_no | order_date | salesman_no | client_no |
++----------+------------+-------------+-----------+
+|        1 | 2020-03-10 |          10 |         1 |
+|        2 | 2020-03-12 |          20 |         2 |
++----------+------------+-------------+-----------+
+2 rows in set (0.02 sec)
+
+mysql> select * from product_master_two;
++------------+-------------------------+----------------+
+| product_no | product_sizeforcustomer | product_colour |
++------------+-------------------------+----------------+
+|          1 | S                       | black          |
+|          2 | M                       | white          |
++------------+-------------------------+----------------+
+2 rows in set (0.02 sec)
+
+mysql> select * from product_master_one;
++------------+--------+---------------+--------------------+
+| product_no | pay_id | product_price | quantity_available |
++------------+--------+---------------+--------------------+
+|          1 |    101 |           100 |                  3 |
+|          2 |    102 |           200 |                  4 |
++------------+--------+---------------+--------------------+
+2 rows in set (0.08 sec)
+
+mysql> select * from payment_two;
++--------+------------------+--------------------+
+| pay_id | pay_details_cash | pay_details_online |
++--------+------------------+--------------------+
+|    101 | yes              | no                 |
+|    102 | no               | yes                |
+|    103 | no               | yes                |
++--------+------------------+--------------------+
+3 rows in set (0.10 sec)
+
+mysql> select * from payment_one;
++--------+---------+------------+-----------------+
+| pay_id | pay_amt | pay_date   | pay_customer_id |
++--------+---------+------------+-----------------+
+|    101 |     100 | 2000-05-01 |               1 |
+|    102 |     200 | 2020-03-19 |               2 |
+|    103 |     300 | 2020-03-09 |               3 |
++--------+---------+------------+-----------------+
+3 rows in set (0.05 sec)
+
+mysql> select * from client_three;
++-----------+----------------+
+| client_no | client_pincode |
++-----------+----------------+
+|         1 |         411037 |
+|         2 |         413201 |
+|         3 |         422012 |
++-----------+----------------+
+3 rows in set (0.04 sec)
+
+mysql> select * from client_two;
++-----------+-----------------+
+| client_no | client_streetno |
++-----------+-----------------+
+|         1 |             111 |
+|         2 |            4132 |
+|         3 |            8765 |
++-----------+-----------------+
+3 rows in set (0.03 sec)
+
+mysql> select * from client_one;
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   |
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       |
++-----------+--------------+--------------+---------------+---------------+
+3 rows in set (0.04 sec)
+
+mysql> select * from app_user_three;
++-----------------+-------------+--------------+
+| user_email_id   | user_state  | user_pincode |
++-----------------+-------------+--------------+
+| bajiraopatil    | maharashtra |       413209 |
+| madhavpatil     | maharashtra |       413201 |
+| nikhita         | maharashtra |       422012 |
+| shreyadeshpande | maharashtra |       422012 |
+| sunitapatil     | maharashtra |       411037 |
++-----------------+-------------+--------------+
+5 rows in set (0.08 sec)
+
+mysql> select * from app_user_two;
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| bajiraopatil    |           888 | madha     |
+| madhavpatil     |          4132 | barshi    |
+| nikhita         |          8765 | nashik    |
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+5 rows in set (0.04 sec)
+
+mysql> select * from app_user_one;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | trousers  | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.08 sec)
+
+mysql> select * from user_login;
++-----------------+---------------+
+| user_email_id   | user_password |
++-----------------+---------------+
+| bajiraopatil    |          9876 |
+| madhavpatil     |          4576 |
+| nikhita         |          8459 |
+| shreyadeshpande |          1526 |
+| sunitapatil     |          1234 |
++-----------------+---------------+
+5 rows in set (0.06 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| app_user_one        |
+| app_user_three      |
+| app_user_two        |
+| client_one          |
+| client_three        |
+| client_two          |
+| payment_one         |
+| payment_two         |
+| product_master_one  |
+| product_master_two  |
+| sales_order         |
+| sales_order_details |
+| salesman_master     |
+| user_login          |
++---------------------+
+14 rows in set (0.00 sec)
+
+mysql> select * from user_login 
+    -> where user_email_id='nikhita';
++---------------+---------------+
+| user_email_id | user_password |
++---------------+---------------+
+| nikhita       |          8459 |
++---------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from app_user_one;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | trousers  | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 se
+
+mysql> select * from app_user_one 
+    -> order by user_email_id ;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | trousers  | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from app_user_one  order by user_email_id desc;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| sunitapatil     |       70165 | jeans     | goggles       |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| bajiraopatil    |       75175 | trousers  | shirt         |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from app_user_one  order by user_cart desc;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| nikhita         |      845999 | tshirt    | kurta         |
+| bajiraopatil    |       75175 | trousers  | shirt         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from app_user_one  order by user_wishlist desc;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | trousers  | shirt         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| sunitapatil     |       70165 | jeans     | goggles       |
+| madhavpatil     |       75175 | shoose    | earphones     |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from app_user_two order by user_streeno desc;
+ERROR 1054 (42S22): Unknown column 'user_streeno' in 'order clause'
+mysql> select * from app_user_two order by user_streetno desc;
+
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| nikhita         |          8765 | nashik    |
+| madhavpatil     |          4132 | barshi    |
+| bajiraopatil    |           888 | madha     |
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from app_user_two order by user_streetno asc;
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| sunitapatil     |           111 | pune      |
+| shreyadeshpande |           151 | nashik    |
+| bajiraopatil    |           888 | madha     |
+| madhavpatil     |          4132 | barshi    |
+| nikhita         |          8765 | nashik    |
++-----------------+---------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from app_user_two order by user_streetno ;
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| sunitapatil     |           111 | pune      |
+| shreyadeshpande |           151 | nashik    |
+| bajiraopatil    |           888 | madha     |
+| madhavpatil     |          4132 | barshi    |
+| nikhita         |          8765 | nashik    |
++-----------------+---------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from app_user_three order by user_pincode ;
++-----------------+-------------+--------------+
+| user_email_id   | user_state  | user_pincode |
++-----------------+-------------+--------------+
+| sunitapatil     | maharashtra |       411037 |
+| madhavpatil     | maharashtra |       413201 |
+| bajiraopatil    | maharashtra |       413209 |
+| nikhita         | maharashtra |       422012 |
+| shreyadeshpande | maharashtra |       422012 |
++-----------------+-------------+--------------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> select user_email_id,user_city   
+    -> from app_user_two
+    -> where user_city='nashik'
+    -> order by user_email_id;
++-----------------+-----------+
+| user_email_id   | user_city |
++-----------------+-----------+
+| nikhita         | nashik    |
+| shreyadeshpande | nashik    |
++-----------------+-----------+
+2 rows in set (0.01 sec)
+
+mysql> select user_email_id,user_city from app_user_two where user_city='nashik' order by user_email_id desc;
++-----------------+-----------+
+| user_email_id   | user_city |
++-----------------+-----------+
+| shreyadeshpande | nashik    |
+| nikhita         | nashik    |
++-----------------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from app_user_two
+    -> ;
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| bajiraopatil    |           888 | madha     |
+| madhavpatil     |          4132 | barshi    |
+| nikhita         |          8765 | nashik    |
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+sunita@sunita-Inspiron-3576:~$ sudo -i
+[sudo] password for sunita: 
+Sorry, try again.
+[sudo] password for sunita: 
+root@sunita-Inspiron-3576:~# mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.19-0ubuntu0.19.10.3 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db1
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| app_user_one        |
+| app_user_three      |
+| app_user_two        |
+| client_one          |
+| client_three        |
+| client_two          |
+| payment_one         |
+| payment_two         |
+| product_master_one  |
+| product_master_two  |
+| sales_order         |
+| sales_order_details |
+| salesman_master     |
+| user_login          |
++---------------------+
+14 rows in set (0.01 sec)
+
+mysql> select * from ap_user_one
+    -> ;
+ERROR 1146 (42S02): Table 'db1.ap_user_one' doesn't exist
+mysql> select * from app_user_one;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | trousers  | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.03 sec)
+
+mysql> select * from app_user_one
+    -> where user_email_id is not NULL;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | trousers  | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from app_user_one where user_email_id is NULL;
+Empty set (0.00 sec)
+
+mysql> update app_user_one 
+    -> set trousers ='sanitizer'
+    -> where user_email_id =bajiraopatil;
+ERROR 1054 (42S22): Unknown column 'bajiraopatil' in 'where clause'
+mysql> update app_user_one  set trousers ='sanitizer' where user_email_id ='bajiraopatil';
+ERROR 1054 (42S22): Unknown column 'trousers' in 'field list'
+mysql> update app_user_one  set user_cart ='sanitizer' where user_email_id ='bajiraopatil';
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from app_user_one;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | sanitizer | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select min(user_mobile) from app_user_one
+    -> ;
++------------------+
+| min(user_mobile) |
++------------------+
+|            70165 |
++------------------+
+1 row in set (0.03 sec)
+
+mysql> select max(user_mobile) from app_user_one
+    -> ;
++------------------+
+| max(user_mobile) |
++------------------+
+|           845999 |
++------------------+
+1 row in set (0.00 sec)
+
+
+mysql> select count(user_email_id)
+    -> from app_user_one
+    -> ;
++----------------------+
+| count(user_email_id) |
++----------------------+
+|                    5 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(pay_amt) 
+    -> from payment_one;
++--------------+
+| avg(pay_amt) |
++--------------+
+|     200.0000 |
++--------------+
+1 row in set (0.03 sec)
+
+mysql> select sum(pay_amt)  from payment_one;
++--------------+
+| sum(pay_amt) |
++--------------+
+|          600 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from client_one
+    -> where client_emaiil like 's_%';
+ERROR 1054 (42S22): Unknown column 'client_emaiil' in 'where clause'
+mysql> select * from client_one where client_emaail like 's_%';
+ERROR 1054 (42S22): Unknown column 'client_emaail' in 'where clause'
+mysql> select * from client_one where client_email like 's_%';
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
++-----------+--------------+--------------+---------------+---------------+
+1 row in set (0.02 sec)
+
+mysql> select * from client_one where client_email like 'n_%';
++-----------+-------------+--------------+---------------+---------------+
+| client_no | client_name | client_email | client_mobile | user_email_id |
++-----------+-------------+--------------+---------------+---------------+
+|         3 | nikhita     | nikhitag     |         84599 | nikhita       |
++-----------+-------------+--------------+---------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from client_one where client_email like '_l%';
+Empty set (0.00 sec)
+
+mysql> select * from client_one where client_email like '%_l';
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   |
++-----------+--------------+--------------+---------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from client_one where client_email like 's%l';
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
++-----------+--------------+--------------+---------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from client_one where client_email like 'a%l';
+Empty set (0.00 sec)
+
+mysql> select * from app_user_two
+    -> where user_city in ('nashik','pune');
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| nikhita         |          8765 | nashik    |
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+3 rows in set (0.06 sec)
+
+mysql> select * from app_user_two  where user_city not in ('nashik','pune');
++---------------+---------------+-----------+
+| user_email_id | user_streetno | user_city |
++---------------+---------------+-----------+
+| bajiraopatil  |           888 | madha     |
+| madhavpatil   |          4132 | barshi    |
++---------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from app_user_two 
+    -> where user_streetno BETWEEN 100 AND 2000;
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| bajiraopatil    |           888 | madha     |
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from app_user_two  where user_streetno not BETWEEN 100 AND 2000;
+
++---------------+---------------+-----------+
+| user_email_id | user_streetno | user_city |
++---------------+---------------+-----------+
+| madhavpatil   |          4132 | barshi    |
+| nikhita       |          8765 | nashik    |
++---------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from app_user_two  where user_streetno BETWEEN 100 AND 2000 and
+user_city not in ('madha');
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select user_email_id as id, user_city as city from app_user_two 
+    -> where user_streetno='111';
++-------------+------+
+| id          | city |
++-------------+------+
+| sunitapatil | pune |
++-------------+------+
+1 row in set (0.00 sec)
+
+'
+mysql> select client_one.client_no ,app_user_three.user_pincode,client_one.client_name  
+    ->from client_one  INNER JOIN app_user_three  
+    ->ON app_user_three.user_email_id=client_one.user_email_id;
++-----------+--------------+--------------+
+| client_no | user_pincode | client_name  |
++-----------+--------------+--------------+
+|         2 |       413201 | madhav patil |
+|         3 |       422012 | nikhita      |
+|         1 |       411037 | sunita patil |
++-----------+--------------+--------------+
+3 rows in set (0.02 sec)
+
+mysql> select client_one.client_no ,app_user_three.user_pincode,client_one.client_name
+    -> from client_one 
+    -> INNER JOIN app_user_three 
+    -> ON app_user_three.user_email_id=client_one.user_email_id;
++-----------+--------------+--------------+
+| client_no | user_pincode | client_name  |
++-----------+--------------+--------------+
+|         1 |       411037 | sunita patil |
+|         2 |       413201 | madhav patil |
+|         3 |       422012 | nikhita      |
++-----------+--------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select client_one.client_no ,app_user_three.user_pincode,client_one.client_name from client_one  LEFT JOIN app_user_three  ON app_user_three.user_email_id=client_one.user_email_id;
++-----------+--------------+--------------+
+| client_no | user_pincode | client_name  |
++-----------+--------------+--------------+
+|         1 |       411037 | sunita patil |
+|         2 |       413201 | madhav patil |
+|         3 |       422012 | nikhita      |
++-----------+--------------+--------------+
+3 rows in set (0.01 sec)
+
+mysql> select client_one.client_no ,app_user_three.user_pincode,client_one.client_name from client_one  RIGHT JOIN app_user_three  ON app_user_three.user_email_id=client_one.user_email_id;
++-----------+--------------+--------------+
+| client_no | user_pincode | client_name  |
++-----------+--------------+--------------+
+|         1 |       411037 | sunita patil |
+|         2 |       413201 | madhav patil |
+|         3 |       422012 | nikhita      |
+|      NULL |       413209 | NULL         |
+|      NULL |       422012 | NULL         |
++-----------+--------------+--------------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> select client_one.client_no,client_one.client_name from client_one left JOIN app_user_three  ON app_user_three.user_email_id=client_one.user_email_id;
++-----------+--------------+
+| client_no | client_name  |
++-----------+--------------+
+|         1 | sunita patil |
+|         2 | madhav patil |
+|         3 | nikhita      |
++-----------+--------------+
+3 rows in set (0.01 sec)
+
+mysql> select a.user_email_id as client1, b.user_email_id as client2 ,a.user_city 
+    -> from app_user_two a, app_user_two b
+    -> where a.user_email_id <>b.user_email_id
+    -> and a.user_city=b.user_city
+    -> order by a.user_city 
+    -> ;
++-----------------+-----------------+-----------+
+| client1         | client2         | user_city |
++-----------------+-----------------+-----------+
+| shreyadeshpande | nikhita         | nashik    |
+| nikhita         | shreyadeshpande | nashik    |
++-----------------+-----------------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from app_user_one;
++-----------------+-------------+-----------+---------------+
+| user_email_id   | user_mobile | user_cart | user_wishlist |
++-----------------+-------------+-----------+---------------+
+| bajiraopatil    |       75175 | sanitizer | shirt         |
+| madhavpatil     |       75175 | shoose    | earphones     |
+| nikhita         |      845999 | tshirt    | kurta         |
+| shreyadeshpande |       75884 | trousers  | one-piece     |
+| sunitapatil     |       70165 | jeans     | goggles       |
++-----------------+-------------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> create view view1 as 
+    -> select user_email_id,user_mobile
+    -> from app_user_one;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> select * from view1;
++-----------------+-------------+
+| user_email_id   | user_mobile |
++-----------------+-------------+
+| bajiraopatil    |       75175 |
+| madhavpatil     |       75175 |
+| nikhita         |      845999 |
+| shreyadeshpande |       75884 |
+| sunitapatil     |       70165 |
++-----------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> create view view2 as 
+    -> select client_no,client_name,client_email
+    -> from client_one;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> select * from view2;
++-----------+--------------+--------------+
+| client_no | client_name  | client_email |
++-----------+--------------+--------------+
+|         1 | sunita patil | sunitapatil  |
+|         2 | madhav patil | madhavpatil  |
+|         3 | nikhita      | nikhitag     |
++-----------+--------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> select * from app_user_two;
++-----------------+---------------+-----------+
+| user_email_id   | user_streetno | user_city |
++-----------------+---------------+-----------+
+| bajiraopatil    |           888 | madha     |
+| madhavpatil     |          4132 | barshi    |
+| nikhita         |          8765 | nashik    |
+| shreyadeshpande |           151 | nashik    |
+| sunitapatil     |           111 | pune      |
++-----------------+---------------+-----------+
+5 rows in set (0.01 sec)
+
+mysql> select user_streetno
+    -> ,
+    -> max(user_streetno) as "maxstreetno"
+    -> from app_user_two
+    -> group by user_streetno
+    -> having max(user_streetno)>100;
++---------------+-------------+
+| user_streetno | maxstreetno |
++---------------+-------------+
+|           888 |         888 |
+|          4132 |        4132 |
+|          8765 |        8765 |
+|           151 |         151 |
+|           111 |         111 |
++---------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from payment_one;
++--------+---------+------------+-----------------+
+| pay_id | pay_amt | pay_date   | pay_customer_id |
++--------+---------+------------+-----------------+
+|    101 |     100 | 2000-05-01 |               1 |
+|    102 |     200 | 2020-03-19 |               2 |
+|    103 |     300 | 2020-03-09 |               3 |
++--------+---------+------------+-----------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select pay_amt, max(pay_amt) as "maxamt" from payment_one group by pay_amt  having max(pay_amt) >200;
++---------+--------+
+| pay_amt | maxamt |
++---------+--------+
+|     300 |    300 |
++---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select pay_amt,
+    -> max(pay_amt) as "maxamt"
+    -> from payment_one
+    -> group by pay_amt 
+    -> having max(pay_amt) >100;
++---------+--------+
+| pay_amt | maxamt |
++---------+--------+
+|     200 |    200 |
+|     300 |    300 |
++---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+*********EQUI JOIN
+mysql> select * from client_one;
++-----------+--------------+--------------+---------------+---------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id |
++-----------+--------------+--------------+---------------+---------------+
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   |
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       |
++-----------+--------------+--------------+---------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from app_user_three;
++-----------------+-------------+--------------+
+| user_email_id   | user_state  | user_pincode |
++-----------------+-------------+--------------+
+| bajiraopatil    | maharashtra |       413209 |
+| madhavpatil     | maharashtra |       413201 |
+| nikhita         | maharashtra |       422012 |
+| shreyadeshpande | maharashtra |       422012 |
+| sunitapatil     | maharashtra |       411037 |
++-----------------+-------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select client_one.client_no,client_one.client_name,client_one.user_email_id,app_user_three.user_pincode,app_user_three.user_state
+    -> from client_one ,app_user_three
+    -> where client_one.user_email_id=app_user_three.user_email_id;
++-----------+--------------+---------------+--------------+-------------+
+| client_no | client_name  | user_email_id | user_pincode | user_state  |
++-----------+--------------+---------------+--------------+-------------+
+|         1 | sunita patil | sunitapatil   |       411037 | maharashtra |
+|         2 | madhav patil | madhavpatil   |       413201 | maharashtra |
+|         3 | nikhita      | nikhita       |       422012 | maharashtra |
++-----------+--------------+---------------+--------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+************crosss join
+mysql> select * from client_one cross join app_user_three;
++-----------+--------------+--------------+---------------+---------------+-----------------+-------------+--------------+
+| client_no | client_name  | client_email | client_mobile | user_email_id | user_email_id   | user_state  | user_pincode |
++-----------+--------------+--------------+---------------+---------------+-----------------+-------------+--------------+
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       | bajiraopatil    | maharashtra |       413209 |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   | bajiraopatil    | maharashtra |       413209 |
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   | bajiraopatil    | maharashtra |       413209 |
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       | madhavpatil     | maharashtra |       413201 |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   | madhavpatil     | maharashtra |       413201 |
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   | madhavpatil     | maharashtra |       413201 |
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       | nikhita         | maharashtra |       422012 |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   | nikhita         | maharashtra |       422012 |
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   | nikhita         | maharashtra |       422012 |
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       | shreyadeshpande | maharashtra |       422012 |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   | shreyadeshpande | maharashtra |       422012 |
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   | shreyadeshpande | maharashtra |       422012 |
+|         3 | nikhita      | nikhitag     |         84599 | nikhita       | sunitapatil     | maharashtra |       411037 |
+|         2 | madhav patil | madhavpatil  |         96735 | madhavpatil   | sunitapatil     | maharashtra |       411037 |
+|         1 | sunita patil | sunitapatil  |         70165 | sunitapatil   | sunitapatil     | maharashtra |       411037 |
++-----------+--------------+--------------+---------------+---------------+-----------------+-------------+--------------+
+15 rows in set (0.00 sec)
+
+mysql> 
+
+**********anti join 
+
+mysql> select client_one.client_no,client_one.client_name,client_one.user_email_id
+    -> from client_one 
+    -> where NOT EXISTS
+    -> (
+    -> select * from app_user_three
+    -> where client_one.user_email_id=app_user_three.user_email_id
+    -> )
+    -> order by client_one.client_no;
+Empty set (0.00 sec)
+
+mysql> select client_one.client_no,client_one.client_name,client_one.user_email_id from client_one  where  EXISTS ( select * from app_user_three where client_one.user_email_id=app_user_three.user_email_id ) order by client_one.client_no;
++-----------+--------------+---------------+
+| client_no | client_name  | user_email_id |
++-----------+--------------+---------------+
+|         1 | sunita patil | sunitapatil   |
+|         2 | madhav patil | madhavpatil   |
+|         3 | nikhita      | nikhita       |
++-----------+--------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+mysql> select client_one.client_no,client_one.client_name,client_one.user_email_id,app_user_three.user_pincode,app_user_three.user_state from client_one inner join app_user_three  on client_one.user_email_id=app_user_three.user_email_id;
++-----------+--------------+---------------+--------------+-------------+
+| client_no | client_name  | user_email_id | user_pincode | user_state  |
++-----------+--------------+---------------+--------------+-------------+
+|         1 | sunita patil | sunitapatil   |       411037 | maharashtra |
+|         2 | madhav patil | madhavpatil   |       413201 | maharashtra |
+|         3 | nikhita      | nikhita       |       422012 | maharashtra |
++-----------+--------------+---------------+--------------+-------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select client_one.client_no,client_one.client_name,client_one.user_email_id,app_user_three.user_pincode,app_user_three.user_state from client_one inner join app_user_three  on client_one.user_email_id=app_user_three.user_email_id;
++-----------+--------------+---------------+--------------+-------------+
+| client_no | client_name  | user_email_id | user_pincode | user_state  |
++-----------+--------------+---------------+--------------+-------------+
+|         1 | sunita patil | sunitapatil   |       411037 | maharashtra |
+|         2 | madhav patil | madhavpatil   |       413201 | maharashtra |
+|         3 | nikhita      | nikhita       |       422012 | maharashtra |
++-----------+--------------+---------------+--------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> mysql> select client_one.client_no,client_one.client_name,client_one.user_email_id,app_user_ter_pincode,app_user_three.user_state from client_one inner join app_user_three  on client_one.user_email_id=app_user_three.user_email_id;
++-----------+--------------+---------------+--------------+-------------+
+| client_no | client_name  | user_email_id | user_pincode | user_state  |
++-----------+--------------+---------------+--------------+-------------+
+|         1 | sunita patil | sunitapatil   |       411037 | maharashtra |
+|         2 | madhav patil | madhavpatil   |       413201 | maharashtra |
+|         3 | nikhita      | nikhita       |       422012 | maharashtra |
++-----------+--------------+---------------+--------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select client_one.client_no,client_one.client_name,client_one._user_email_id,app_user_three.user_pincode,app_user_three.user_state from client_one inner join app_user_three  on client_one.user_email_id=app_user_three.user_email_id;
+ERROR 1054 (42S22): Unknown column 'client_one._user_email_id' in 'field list'
+mysql> select client_one.client_no,client_one.client_name,client_one.user_email_id,app_user_three.user_pincode,app_user_three.user_state from client_one left join app_user_three  on client_one.user_email_id=app_user_three.user_email_id;
++-----------+--------------+---------------+--------------+-------------+
+| client_no | client_name  | user_email_id | user_pincode | user_state  |
++-----------+--------------+---------------+--------------+-------------+
+|         1 | sunita patil | sunitapatil   |       411037 | maharashtra |
+|         2 | madhav patil | madhavpatil   |       413201 | maharashtra |
+|         3 | nikhita      | nikhita       |       422012 | maharashtra |
++-----------+--------------+---------------+--------------+-------------+
+3 rows in set (0.00 sec)
+****full outer using left and right join
+
+mysql> select client_one.client_no,client_one.client_name,client_one.user_email_id,app_user_three.user_pincode,app_user_three.user_state from client_one left join app_user_three  on client_one.user_email_id=app_user_three.user_email_id
+    -> union
+    -> select client_one.client_no,client_one.client_name,client_one.user_email_id,app_user_three.user_pincode,app_user_three.user_state from client_one right join app_user_three  on client_one.user_email_id=app_user_three.user_email_id;
++-----------+--------------+---------------+--------------+-------------+
+| client_no | client_name  | user_email_id | user_pincode | user_state  |
++-----------+--------------+---------------+--------------+-------------+
+|         1 | sunita patil | sunitapatil   |       411037 | maharashtra |
+|         2 | madhav patil | madhavpatil   |       413201 | maharashtra |
+|         3 | nikhita      | nikhita       |       422012 | maharashtra |
+|      NULL | NULL         | NULL          |       413209 | maharashtra |
+|      NULL | NULL         | NULL          |       422012 | maharashtra |
++-----------+--------------+---------------+--------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+
+
