@@ -61,62 +61,62 @@ Amongst many things that an online site requires the most important is a databas
 ### 2.2 Entity Relation Diagram
 ![ERD_DBMS_CP](https://user-images.githubusercontent.com/47025719/79017672-8a5b4b00-7b8f-11ea-902a-ed7c981d1996.png)
 Details of tables:
-  1)Product_master
-            A.p_details -[FK]payment details, This attribute is common between payment and 
+  - 1)Product_master
+        - A.p_details -[FK]payment details, This attribute is common between payment and 
                       product master table.
-	B.product_sales- Information of product sales
-	C.product_description -detailed information of product which are there to sale 
-	D.product_no -[PK]product has given a unique id i.e number .user ordered some specific  
+	- B.product_sales- Information of product sales
+	- C.product_description -detailed information of product which are there to sale 
+	- D.product_no -[PK]product has given a unique id i.e number .user ordered some specific  
                        a product  which is named by some product number
- 	E.product_price -prices of products 
-	F.quantity_available -multivalued attribute - this is a multivalued attribute which
+ 	- E.product_price -prices of products 
+	- F.quantity_available -multivalued attribute - this is a multivalued attribute which
                   describes available quantities.
-	G.product_type -Types of product.categories like women, men,etc.  
-2.sales_order_details
-           A.order_no-[PK]user orders some specific product and it has some order number.
-	B.product_no- [FK]product has given a unique id i.e number. user ordered some specific  
+	- G.product_type -Types of product.categories like women, men,etc.  
+- 2.sales_order_details
+        - A.order_no-[PK]user orders some specific product and it has some order number.
+	- B.product_no- [FK]product has given a unique id i.e number. user ordered some specific  
                        a product  which is named by some product number
-C.amt-price of product 
-	D.quantity_no- how many quantities are ordered by the user is indicated by quantity number
+        - C.amt-price of product 
+	- D.quantity_no- how many quantities are ordered by the user is indicated by quantity number
 
-3. Sales_order -
-	A.order_date-date on which user ordered product 
-	B.salesman_no-[FK]salesman who will deliver order to user 
-	C.client_no- [FK]user number,id ,etc.
-	D.order_no-[PK]user orders some specific product and it has some order number.
+- 3. Sales_order -
+	- A.order_date-date on which user ordered product 
+	- B.salesman_no-[FK]salesman who will deliver order to user 
+	- C.client_no- [FK]user number,id ,etc.
+	- D.order_no-[PK]user orders some specific product and it has some order number.
 
-4.salesman_master 
-	A.salesman_no-[PK]salesman unique id 
-	B.salesman_pincode-pincode id of salesman 
-	C.salesman_city-city of salesman 
-	D.salesman_name-name of salesman
-	E.salesman_phone_no-salesman phone number 
+- 4.salesman_master 
+	- A.salesman_no-[PK]salesman unique id 
+	- B.salesman_pincode-pincode id of salesman 
+	- C.salesman_city-city of salesman 
+	- D.salesman_name-name of salesman
+	- E.salesman_phone_no-salesman phone number 
 
-5.client-
-	A.client_mobile-mobile number of client
-	B.user_id-[FK]user id of client to log in to web/app
-	C.client_email-email id of client for creation of workspace for user
-	D.client_pincode-pincode of client,address requirement
-	E.client_address-address of client for delivery purpose
-	F.client_name-name of client 
-	G.client_no-[PK]unique id of client which is primary key of this table 
-	H.client_city-city of client for address purpose for delivery.
+- 5.client-
+	- A.client_mobile-mobile number of client
+	- B.user_id-[FK]user id of client to log in to web/app
+	- C.client_email-email id of client for creation of workspace for user
+	- D.client_pincode-pincode of client,address requirement
+	- E.client_address-address of client for delivery purpose
+	- F.client_name-name of client 
+	- G.client_no-[PK]unique id of client which is primary key of this table 
+	- H.client_city-city of client for address purpose for delivery.
 	
 
-6.App_user -
-	A.user_wish_list-user wants to wish to buy this product 
-	B.user_id-[FK]user id of client/user user id is necessary for log in to the web/app
-	C.user_cart-user added product to buy the product
-	D.user_address-address of user 
-	E.user_name-name of user for log in to the app/website
-	F.user_mobile-mobile number of user 
-	G.user_pincode-pincode of user for location purpose.
-	H.user_email-email address of the user for login purpose.
+- 6.App_user -
+	- A.user_wish_list-user wants to wish to buy this product 
+	- B.user_id-[FK]user id of client/user user id is necessary for log in to the web/app
+	- C.user_cart-user added product to buy the product
+	- D.user_address-address of user 
+	- E.user_name-name of user for log in to the app/website
+	- F.user_mobile-mobile number of user 
+	- G.user_pincode-pincode of user for location purpose.
+	- H.user_email-email address of the user for login purpose.
 
-7.user_log_in
-	A.user_password-password of the user for security purposes.
-	B.user_username-username of user for login purpose
-	C.user_id-[PK]user id of user for login app/website.
+- 7.user_log_in
+	- A.user_password-password of the user for security purposes.
+	- B.user_username-username of user for login purpose
+	- C.user_id-[PK]user id of user for login app/website.
 
 ## 3. Implementation
 
