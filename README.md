@@ -308,7 +308,7 @@ delimiter $$
  - 3.
      
 
-
+```
 ### 4.3 Triggers
 #### Trigger that will execute before inserting new customer to database and inserting a new cartId to the cart_items table
 
