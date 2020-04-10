@@ -62,6 +62,7 @@ Amongst many things that an online site requires the most important is a databas
 ![ERD_DBMS_CP](https://user-images.githubusercontent.com/47025719/79017672-8a5b4b00-7b8f-11ea-902a-ed7c981d1996.png)
 Details of tables:
   - 1)Product_master
+  
         - A.p_details -[FK]payment details, This attribute is common between payment and 
                       product master table.
 	- B.product_sales- Information of product sales
@@ -73,11 +74,12 @@ Details of tables:
                   describes available quantities.
 	- G.product_type -Types of product.categories like women, men,etc.  
 - 2.sales_order_details
+
         - A.order_no-[PK]user orders some specific product and it has some order number.
 	- B.product_no- [FK]product has given a unique id i.e number. user ordered some specific  
                        a product  which is named by some product number
         - C.amt-price of product 
-	- D.quantity_no- how many quantities are ordered by the user is indicated by quantity number
+        - D.quantity_no- how many quantities are ordered by the user is indicated by quantity number
 
 - 3. Sales_order -
 	- A.order_date-date on which user ordered product 
