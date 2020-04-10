@@ -281,7 +281,7 @@ These are some demo values. Full data will be updated in future commits
 ```sql
 - 1.Procedure which returns all email_ids and user names
 
-delimiter $$ 
+     delimiter $$ 
      create PROCEDURE GETUSER_email_id()
      BEGIN
      SELECT 
@@ -289,12 +289,12 @@ delimiter $$
      from app_user_one
      ORDER BY user_email_id;
      end $$ 
- delimiter;
-   - calling procedure 
+     delimiter;
+- calling procedure 
      call GETUSER_email_id ();
   
- - 2.procedure which returns total count of wishlist
- delimiter $$
+- 2.procedure which returns total count of wishlist
+     delimiter $$
      create PROCEDURE Get_total_product_count ()
      begin 
      declare total_count INT default 0;
@@ -302,13 +302,14 @@ delimiter $$
      from app_user_one;
      select total_count ;
      end $$ 
- delimiter ;
-   - calling procedure
+     delimiter ;
+- calling procedure
      call Get_total_product_count ();
      
      
- - 3.Procedure to know clients name
- delimiter $$
+- 3.Procedure to know clients name
+ 
+     delimiter $$
      create procedure Get_client_name (
      in clientname varchar(20)
      )
@@ -316,12 +317,12 @@ delimiter $$
      select * from client_one
      where client_name=clientname;
      end $$
- delimiter ;
-   - calling procedure
+     delimiter ;
+- calling procedure
      call Get_client_name('arg');
      
  - 4.Procedure to know about active and inactive customer based on product sales and      past orders
- delimiter $$
+     delimiter $$
      create procedure get_payment_customer_details(
      in customerid int,
      out amtlimit varchar(20))
@@ -336,13 +337,14 @@ delimiter $$
      SET amtlimit='not doing well';
      END IF;
      END $$
- delimiter ;
-   - calling procedure
+     delimiter ;
+ - calling procedure
      call get_payment_customer_details(1,@amtlimit);
      select @amtlimit;
      
  - 5.Procedure to know how many days it will take to ship product to client
- DELIMITER $$
+     
+     DELIMITER $$
      CREATE PROCEDURE Get_Customer_Shipping(
      IN  Customerid INT, 
      OUT Shipping VARCHAR(50)
@@ -363,8 +365,8 @@ delimiter $$
      SET Shipping = '5-day Shipping';
      END CASE;
      END$$
- delimiter ;
-   - calling procedure
+     delimiter ;
+- calling procedure
      call Get_Customer_Shipping(1,@shipping);
      select @shipping;
      
