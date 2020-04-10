@@ -262,7 +262,7 @@ product_sizeforcustomer varchar(20),
 product_colour varchar(20),
 primary key(product_no)
 );
-
+```
 
 
 ### 3.2 Inserting Values
