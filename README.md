@@ -305,7 +305,68 @@ delimiter $$
  delimiter ;
    - calling procedure
      call Get_total_product_count ();
- - 3.
+     
+     
+ - 3.Procedure to know clients name
+ delimiter $$
+     create procedure Get_client_name (
+     in clientname varchar(20)
+     )
+     begin 
+     select * from client_one
+     where client_name=clientname;
+     end $$
+ delimiter ;
+   - calling procedure
+     call Get_client_name('arg');
+     
+ - 4.Procedure to know about active and inactive customer based on product sales and      past orders
+ delimiter $$
+     create procedure get_payment_customer_details(
+     in customerid int,
+     out amtlimit varchar(20))
+     begin 
+     declare amt decimal default 0;
+     select pay_amt into amt 
+     from payment_one
+     where pay_customer_id=customerid;
+     IF amt >0 then 
+     SET amtlimit ='doing well';
+     ELSE 
+     SET amtlimit='not doing well';
+     END IF;
+     END $$
+ delimiter ;
+   - calling procedure
+     call get_payment_customer_details(1,@amtlimit);
+     select @amtlimit;
+     
+ - 5.Procedure to know how many days it will take to ship product to client
+ DELIMITER $$
+     CREATE PROCEDURE Get_Customer_Shipping(
+     IN  Customerid INT, 
+     OUT Shipping VARCHAR(50)
+     )
+     BEGIN
+     DECLARE customer_city VARCHAR(100);
+     SELECT user_city
+     INTO customer_city FROM
+     app_user_two
+     WHERE
+     user_email_id = Customerid;
+     CASE customer_city
+     WHEN  'pune' THEN
+     SET Shipping = '2-day Shipping';
+     WHEN 'nashik' THEN
+     SET Shipping = '3-day Shipping';
+     ELSE
+     SET Shipping = '5-day Shipping';
+     END CASE;
+     END$$
+ delimiter ;
+   - calling procedure
+     call Get_Customer_Shipping(1,@shipping);
+     select @shipping;
      
 
 ```
