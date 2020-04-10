@@ -273,7 +273,7 @@ These are some demo values. Full data will be updated in future commits
 
 ### 4.1 Basic Queries
 
-#### If the customer wants to see details of the product present in the cart
+#### Queries to give basic information about databse stored
 
 ### 4.2 PL/SQL function
 
