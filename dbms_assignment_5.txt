@@ -23,18 +23,7 @@ TASK COMPLETED
 9.meaningful stored PL/SQL functions -6 procedures
 ----------------------------------------------------------
 
-mysql> show function status where db='db1';
-+-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
-| Db  | Name                         | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
-+-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
-| db1 | Customer_Shipping            | FUNCTION | root@localhost | 2020-04-08 20:52:10 | 2020-04-08 20:52:10 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
-| db1 | GETUSER_email_id             | FUNCTION | root@localhost | 2020-04-08 11:21:50 | 2020-04-08 11:21:50 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
-| db1 | Get_client_name              | FUNCTION | root@localhost | 2020-04-08 13:02:42 | 2020-04-08 13:02:42 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
-| db1 | Get_Customer_Shipping        | FUNCTION | root@localhost | 2020-04-08 20:38:53 | 2020-04-08 20:38:53 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
-| db1 | get_payment_customer_details | FUNCTION | root@localhost | 2020-04-08 20:04:11 | 2020-04-08 20:04:11 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
-| db1 | Get_total_product_count      | FUNCTION | root@localhost | 2020-04-08 12:27:24 | 2020-04-08 12:27:24 | DEFINER       |         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
-+-----+------------------------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
-6 rows in set (0.00 sec)
+
 
 
 mysql> show procedure status where db='db1';
